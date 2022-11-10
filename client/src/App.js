@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard"
 import Sidebar from "./components/Sidebar"
 import Diary from './pages/Diary'
 import AddDiary from "./pages/AddDiary";
+import EditDiary from "./pages/EditDiary";
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link'
 import AddIcon from '@mui/icons-material/Add';
@@ -19,23 +20,10 @@ function App() {
     //Fake data
     class Data {
       constructor(id, date, notes, project){
-          this._id = id;
-          this._date = date;
-          this._notes = notes;
-          this._project = project;
-      }
-
-      get id(){
-          return this._id
-      }
-      get date(){
-          return this._date
-      }
-      get notes(){
-          return this._notes
-      }
-      get project(){
-          return this._project
+          this.id = id;
+          this.date = date;
+          this.notes = notes;
+          this.project = project;
       }
   }
 
@@ -69,6 +57,11 @@ const saveDiary = (diary) => {
   setDiaryData([...diaryData, diary])
 }
 
+const editDiary = (newDiary) => {
+  const filteredDiaries = diaryData.filter(diary => diary.id !== newDiary.id)
+  setDiaryData([...filteredDiaries, newDiary])
+}
+
   return (
     <BrowserRouter>
       <Navbar sideBarClick={() => setIsDrawerOpen(true)}/>
@@ -78,6 +71,7 @@ const saveDiary = (diary) => {
         <Route path="/dashboard" element={<Dashboard diaries={diaryData}/>}/>
         <Route path="/diaries/:id" element={<Diary diaries={diaryData}/>}/>
         <Route path="/diaries/add" element={<AddDiary saveDiary={saveDiary}/>}/>
+        <Route path="/diaries/edit/:id" element={<EditDiary editDiary={editDiary} diaries={diaryData}/>}/>
       </Routes>
       <Link component={RouterLink} to='/diaries/add'>
         <Fab style={fabStyle} color="success" aria-label="add">

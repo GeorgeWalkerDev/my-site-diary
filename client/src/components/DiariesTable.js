@@ -42,7 +42,9 @@ const DiariesTable = ({diaries}) => {
                     <TableCell>{truncate(row.notes, 50)}</TableCell>
                     <TableCell>{row.project}</TableCell>
                     <TableCell>
-                        <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
+                        <Link component={RouterLink} to={`/diaries/edit/${row.id}`}>
+                            <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
+                        </Link>
                         <IconButton size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
                     </TableCell>
                 </TableRow>
