@@ -9,6 +9,8 @@ import ListItemText from '@mui/material/ListItemText';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import Link from '@mui/material/Link'
+import { Link as RouterLink } from 'react-router-dom'
 
 const Sidebar = ({onClose, isDrawerOpen}) => {
 
@@ -19,27 +21,33 @@ const Sidebar = ({onClose, isDrawerOpen}) => {
         open={isDrawerOpen}
         onClose={onClose}
         >
-            <Box p={2} sx={{width:250}} textAlign="center" role="presentation">
-                <Typography variant="h6" component="div">My Site Diary</Typography>
+            <Box p={2} sx={{width:250}} role="presentation">
+                <Typography sx={{pl: '16px'}} variant="h6" component="div">My Site Diary</Typography>
                 <List>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon><BookmarkIcon /></ListItemIcon>
-                            <ListItemText primary="Diaries"/>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon><DashboardIcon /></ListItemIcon>
-                            <ListItemText primary="Dashboard"/>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon><LogoutIcon /></ListItemIcon>
-                            <ListItemText primary="Logout"/>
-                        </ListItemButton>
-                    </ListItem>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard'}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                    <ListItemIcon><BookmarkIcon /></ListItemIcon>
+                                    <ListItemText primary="Diaries"/>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard'}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                                <ListItemText primary="Dashboard"/>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard'}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon><LogoutIcon /></ListItemIcon>
+                                <ListItemText primary="Logout"/>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
                 </List>
             </Box>
         </Drawer>

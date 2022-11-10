@@ -5,11 +5,13 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link'
+import {Link as RouterLink} from 'react-router-dom'
 
 
 function Navbar({sideBarClick}) {
     return (
-      <Box sx={{ flexGrow: 1, mb: 12 }}>
+      <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <IconButton
@@ -22,9 +24,11 @@ function Navbar({sideBarClick}) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              My Site Diary
-            </Typography>
+            <Link sx={{ flexGrow: 1 }} color="inherit" underline="none" to="/dashboard" component={RouterLink}>
+              <Typography variant="h6" component="div">
+                My Site Diary
+              </Typography>
+            </Link>
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>

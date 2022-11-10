@@ -11,7 +11,7 @@ const Signup = () => {
 
     return (
     <Container maxWidth="xs">
-        <Box sx={{mx: 'auto',width: '90%'}}>
+        <Box sx={{mx: 'auto',width: '90%', mt: 12}}>
             <Paper elevation={24} sx={{p: 5}}>
                 <Typography align="center" variant="h3" gutterBottom>My Site Diary</Typography>
                 <Typography align="center" variant="subtitle1" gutterBottom>Create and store your site diaries</Typography>
