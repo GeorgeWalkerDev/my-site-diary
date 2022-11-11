@@ -6,11 +6,13 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button' 
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 
 const AddDiary = ({ saveDiary }) => {
+    const navigate = useNavigate();
+
     const [project, setProject] = useState('')
     const [weather, setWeather] = useState('')
     const [resource, setResource] = useState('')
@@ -23,7 +25,6 @@ const AddDiary = ({ saveDiary }) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('submitted')
         const date = Date.now()
         const id = Math.floor(Math.random() * 10000) + 1
         saveDiary({id, date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
@@ -35,6 +36,8 @@ const AddDiary = ({ saveDiary }) => {
         setHealthSafety('')
         setDeliveries('')
         setNotes('')
+
+        navigate('/dashboard')
     }
 
   return (

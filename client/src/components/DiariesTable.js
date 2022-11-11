@@ -13,9 +13,7 @@ import { formatDate, truncate } from '../helpers/helpers';
 import { Link as RouterLink } from "react-router-dom";
 
 
-const DiariesTable = ({diaries}) => {
-
-
+const DiariesTable = ({diaries, deleteDiary}) => {
 
     return (
         <TableContainer component={Paper}>
@@ -39,13 +37,13 @@ const DiariesTable = ({diaries}) => {
                             {formatDate(row.date, 'MMMM Do YYYY, h:mm:ss a')}
                         </Link>
                     </TableCell>
-                    <TableCell>{truncate(row.notes, 50)}</TableCell>
+                    <TableCell>{truncate(row.notes, 30)}</TableCell>
                     <TableCell>{row.project}</TableCell>
                     <TableCell>
                         <Link component={RouterLink} to={`/diaries/edit/${row.id}`}>
                             <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
                         </Link>
-                        <IconButton size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
+                        <IconButton onClick={() => deleteDiary(row.id)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
                     </TableCell>
                 </TableRow>
                 ))}

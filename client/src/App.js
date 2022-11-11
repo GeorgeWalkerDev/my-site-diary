@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard"
 import Sidebar from "./components/Sidebar"
 import Diary from './pages/Diary'
 import AddDiary from "./pages/AddDiary";
+import Diaries from "./pages/Diaries";
 import EditDiary from "./pages/EditDiary";
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link'
@@ -62,13 +63,19 @@ const editDiary = (newDiary) => {
   setDiaryData([...filteredDiaries, newDiary])
 }
 
+const deleteDiary = (id) => {
+  const filteredDiaries = diaryData.filter(diary => diary.id !== id)
+  setDiaryData(filteredDiaries)
+}
+
   return (
     <BrowserRouter>
       <Navbar sideBarClick={() => setIsDrawerOpen(true)}/>
       <Sidebar onClose={() => setIsDrawerOpen(false)} isDrawerOpen={isDrawerOpen}/>
       <Routes>
         <Route path="/" element={<Signup />}/>
-        <Route path="/dashboard" element={<Dashboard diaries={diaryData}/>}/>
+        <Route path="/dashboard" element={<Dashboard diaries={diaryData} deleteDiary={deleteDiary}/>}/>
+        <Route path="/diaries" element={<Diaries diaries={diaryData}/>}/>
         <Route path="/diaries/:id" element={<Diary diaries={diaryData}/>}/>
         <Route path="/diaries/add" element={<AddDiary saveDiary={saveDiary}/>}/>
         <Route path="/diaries/edit/:id" element={<EditDiary editDiary={editDiary} diaries={diaryData}/>}/>

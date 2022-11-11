@@ -1,6 +1,5 @@
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -22,9 +21,9 @@ const Sidebar = ({onClose, isDrawerOpen}) => {
         onClose={onClose}
         >
             <Box p={2} sx={{width:250}} role="presentation">
-                <Typography sx={{pl: '16px'}} variant="h6" component="div">My Site Diary</Typography>
+                <img className="logo logo-sidebar" src={require('../assets/images/logos/png/logo-no-background.png')} alt="My Site Diary Logo" />
                 <List>
-                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard'}>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/diaries'}>
                         <ListItem disablePadding>
                             <ListItemButton>
                                     <ListItemIcon><BookmarkIcon /></ListItemIcon>
@@ -40,7 +39,7 @@ const Sidebar = ({onClose, isDrawerOpen}) => {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard'}>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/'}>
                         <ListItem disablePadding>
                             <ListItemButton>
                                 <ListItemIcon><LogoutIcon /></ListItemIcon>

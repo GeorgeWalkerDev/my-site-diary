@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react'
 
 const EditDiary = ({editDiary, diaries}) => {
     const navigate = useNavigate();
+    
     const [project, setProject] = useState('')
     const [weather, setWeather] = useState('')
     const [resource, setResource] = useState('')
