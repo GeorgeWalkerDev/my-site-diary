@@ -23,13 +23,12 @@ const EditDiary = ({editDiary, diaries}) => {
     const [date, setDate] = useState('')
 
     let { id } = useParams()
-    id = Number(id)
 
     useEffect(() => {
         if (diaries.length === 0) {
             return
         } else {
-            let diary = diaries.filter(diary => diary.id === id)
+            let diary = diaries.filter(diary => diary._id === id)
             setProject(diary[0].project)
             setWeather(diary[0].weather ? diary[0].weather : '')
             setResource(diary[0].resource ? diary[0].resource : '')

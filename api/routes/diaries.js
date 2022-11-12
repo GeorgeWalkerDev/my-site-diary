@@ -39,6 +39,7 @@ router.put('/:id', async (req, res) => {
       new: true,
       runValidators: true,
     })
+    res.send(diary)
   } catch (err) {
     console.error(err)
   }

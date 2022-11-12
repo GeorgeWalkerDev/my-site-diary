@@ -35,7 +35,7 @@ function App() {
     return data
   }
 
-  //Fetch diary
+  // Fetch diary
   // const fetchDiary = async (id) => {
   //   const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`)
   //   const data = await res.json()
@@ -78,14 +78,26 @@ function App() {
     position: 'fixed',
 };
 
+//Edit diary
+const editDiary = async (newDiary, id) => {
+  // const diaryToUpdate = await fetchTask(id)
 
+  const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(newDiary),
+  })
 
-const editDiary = (newDiary) => {
-  const filteredDiaries = diaryData.filter(diary => diary.id !== newDiary.id)
-  setDiaryData([...filteredDiaries, newDiary])
+  const data = await res.json()
+
+  setDiaryData(
+    diaryData.map((diary) =>
+      diary._id === id ? data : diary
+    )
+  )
 }
-
-
 
   return (
     <BrowserRouter>
