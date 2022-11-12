@@ -22,8 +22,8 @@ router.get('/', async (req, res, next) => {
 router.post('/add', async (req, res) => {
     try {
       // req.body.user = req.user.id
-      await Diary.create(req.body)
-      res.send(req.body)
+      const diary = await Diary.create(req.body)
+      res.send(diary)
     } catch (err) {
       console.error(err)
     }
