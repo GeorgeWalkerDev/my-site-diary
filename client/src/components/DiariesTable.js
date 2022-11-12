@@ -33,7 +33,7 @@ const DiariesTable = ({diaries, deleteDiary}) => {
                     
                     <TableCell component="th" scope="row">
                         <Link component={RouterLink} to={`/diaries/${diary._id}`}>
-                            {formatDate(diary.date, 'MMMM Do YYYY, h:mm:ss a')}
+                            {formatDate(diary.createdAt, 'MMMM Do YYYY, h:mm:ss a')}
                         </Link>
                     </TableCell>
                     <TableCell>{truncate(diary.notes, 30)}</TableCell>
