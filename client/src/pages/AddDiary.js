@@ -26,8 +26,7 @@ const AddDiary = ({ saveDiary }) => {
     const onSubmit = (e) => {
         e.preventDefault()
         const date = Date.now()
-        const id = Math.floor(Math.random() * 10000) + 1
-        saveDiary({id, date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
+        saveDiary({date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
         setProject('')
         setWeather('')
         setResource('')

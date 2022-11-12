@@ -16,7 +16,7 @@ const Diary = ({diaries}) => {
     if (diaries.length === 0) {
       return
     } else {
-      const diary = diaries.filter(diary => diary.id === +id)
+      const diary = diaries.filter(diary => diary._id === id)
       setDiary(diary)
     }
   },[diaries, id])

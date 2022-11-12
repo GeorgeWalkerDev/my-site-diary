@@ -17,34 +17,58 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [diaryData, setDiaryData] = useState([])
 
-  useEffect(() => {
-    //Fake data
-    class Data {
-      constructor(id, date, notes, project){
-          this.id = id;
-          this.date = date;
-          this.notes = notes;
-          this.project = project;
-      }
-  }
+  useEffect( () => {
 
-  const data1 = new Data(
-                          1,
-                          Date.now(),
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                          'Western Yards'
-                      )
+    const getDiaries = async () => {
+      const diariesFromServer = await fetchDiaries()
+      setDiaryData(diariesFromServer)
+    }
 
-  const data2 = new Data(
-                          2,
-                          Date.now(),
-                          'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
-                          'Nine Elms'
-                      )
-    const rows = [data1, data2];
-    setDiaryData(rows)
+    getDiaries()
   },[])
 
+  //Fetch diaries
+  const fetchDiaries = async () => {
+    const res = await fetch('https://my-site-diary.onrender.com/api/diaries')
+    const data = await res.json()
+
+    return data
+  }
+
+  //Fetch diary
+  // const fetchDiary = async (id) => {
+  //   const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`)
+  //   const data = await res.json()
+
+  //   return data
+  // }
+
+  //Add diary
+  const saveDiary = async (diary) => {
+    const res = await fetch('https://my-site-diary.onrender.com/api/diaries/add', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(diary),
+    })
+
+    const data = await res.json()
+
+    setDiaryData([...diaryData, data])
+  }
+
+  //Delete diary
+  const deleteDiary = async (id) => {
+    const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`, {
+      method: 'DELETE',
+    })
+    //We should control the response status to decide if we will change the state or not.
+    res.status === 200
+      ? setDiaryData(diaryData.filter((diary) => diary._id !== id))
+      : alert('Error Deleting This Task')
+  }
+  
   const fabStyle = {
     margin: 0,
     top: 'auto',
@@ -54,19 +78,14 @@ function App() {
     position: 'fixed',
 };
 
-const saveDiary = (diary) => {
-  setDiaryData([...diaryData, diary])
-}
+
 
 const editDiary = (newDiary) => {
   const filteredDiaries = diaryData.filter(diary => diary.id !== newDiary.id)
   setDiaryData([...filteredDiaries, newDiary])
 }
 
-const deleteDiary = (id) => {
-  const filteredDiaries = diaryData.filter(diary => diary.id !== id)
-  setDiaryData(filteredDiaries)
-}
+
 
   return (
     <BrowserRouter>

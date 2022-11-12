@@ -14,7 +14,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 
 const DiariesTable = ({diaries, deleteDiary}) => {
-
+    console.log(diaries)
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -28,22 +28,22 @@ const DiariesTable = ({diaries, deleteDiary}) => {
             <TableBody>
                 {diaries.map((row) => (
                 <TableRow
-                    key={row.id}
+                    key={row._id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     
                     <TableCell component="th" scope="row">
-                        <Link component={RouterLink} to={`/diaries/${row.id}`}>
+                        <Link component={RouterLink} to={`/diaries/${row._id}`}>
                             {formatDate(row.date, 'MMMM Do YYYY, h:mm:ss a')}
                         </Link>
                     </TableCell>
                     <TableCell>{truncate(row.notes, 30)}</TableCell>
                     <TableCell>{row.project}</TableCell>
                     <TableCell>
-                        <Link component={RouterLink} to={`/diaries/edit/${row.id}`}>
+                        <Link component={RouterLink} to={`/diaries/edit/${row._id}`}>
                             <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
                         </Link>
-                        <IconButton onClick={() => deleteDiary(row.id)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
+                        <IconButton onClick={() => deleteDiary(row._id)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
                     </TableCell>
                 </TableRow>
                 ))}
