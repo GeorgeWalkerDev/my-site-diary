@@ -14,7 +14,6 @@ import { Link as RouterLink } from "react-router-dom";
 
 
 const DiariesTable = ({diaries, deleteDiary}) => {
-    console.log(diaries)
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -26,24 +25,24 @@ const DiariesTable = ({diaries, deleteDiary}) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {diaries.map((row) => (
+                {diaries.map((diary) => (
                 <TableRow
-                    key={row._id}
+                    key={diary._id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     
                     <TableCell component="th" scope="row">
-                        <Link component={RouterLink} to={`/diaries/${row._id}`}>
-                            {formatDate(row.date, 'MMMM Do YYYY, h:mm:ss a')}
+                        <Link component={RouterLink} to={`/diaries/${diary._id}`}>
+                            {formatDate(diary.date, 'MMMM Do YYYY, h:mm:ss a')}
                         </Link>
                     </TableCell>
-                    <TableCell>{truncate(row.notes, 30)}</TableCell>
-                    <TableCell>{row.project}</TableCell>
+                    <TableCell>{truncate(diary.notes, 30)}</TableCell>
+                    <TableCell>{diary.project}</TableCell>
                     <TableCell>
-                        <Link component={RouterLink} to={`/diaries/edit/${row._id}`}>
+                        <Link component={RouterLink} to={`/diaries/edit/${diary._id}`}>
                             <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
                         </Link>
-                        <IconButton onClick={() => deleteDiary(row._id)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
+                        <IconButton onClick={() => deleteDiary(diary._id)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
                     </TableCell>
                 </TableRow>
                 ))}

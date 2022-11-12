@@ -6,7 +6,6 @@ import DiariesTable from '../components/DiariesTable'
 import Divider from '@mui/material/Divider'
 
 const Dashboard = ({diaries, deleteDiary}) => {
-
   return (
     <Container maxWidth='xs'>
       <Box sx={{mt: 4}}>

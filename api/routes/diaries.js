@@ -50,6 +50,7 @@ router.delete('/:id', async (req, res) => {
   try {
     let diary = await Diary.findById(req.params.id).lean()
     await Diary.deleteOne({ _id: req.params.id })
+    res.send(diary)
   } catch (err) {
     console.error(err)
   }
