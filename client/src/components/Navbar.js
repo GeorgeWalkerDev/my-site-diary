@@ -26,7 +26,7 @@ function Navbar({sideBarClick}) {
             <Link sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-start'  }} color="inherit" underline="none" to="/dashboard" component={RouterLink}>
               <img className="logo" src={require('../assets/images/logos/png/logo-white-no-background.png')} alt="My Site Diary Logo" />
             </Link>
-            <Button color="inherit">Login</Button>
+            <Button component={RouterLink} to={'/signin'} color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>

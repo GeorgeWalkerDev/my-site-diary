@@ -1,5 +1,7 @@
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home"
 import Signup from "./pages/Signup"
+import Signin from "./pages/Signin"
 import Dashboard from "./pages/Dashboard"
 import Sidebar from "./components/Sidebar"
 import Diary from './pages/Diary'
@@ -106,7 +108,9 @@ const editDiary = async (newDiary, id) => {
       <Navbar sideBarClick={() => setIsDrawerOpen(true)}/>
       <Sidebar onClose={() => setIsDrawerOpen(false)} isDrawerOpen={isDrawerOpen}/>
       <Routes>
-        <Route path="/" element={<Signup />}/>
+        <Route path="/" element={<Home />}/>
+        <Route path="/signup" element={<Signup />}/>
+        <Route path="/signin" element={<Signin />}/>
         <Route path="/dashboard" element={<Dashboard diaries={diaryData} deleteDiary={deleteDiary}/>}/>
         <Route path="/diaries" element={<Diaries diaries={diaryData}/>}/>
         <Route path="/diaries/:id" element={<Diary diaries={diaryData}/>}/>
