@@ -17,19 +17,21 @@ function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [diaryData, setDiaryData] = useState([])
 
-  useEffect( () => {
+  const apiUrl = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test' ? 'http://localhost:9000' : 'https://my-site-diary.onrender.com'
 
+  useEffect( () => {
     const getDiaries = async () => {
-      const diariesFromServer = await fetchDiaries()
+      const diariesFromServer = await fetchDiaries(`${apiUrl}/api/diaries`)
       setDiaryData(diariesFromServer)
     }
 
     getDiaries()
-  },[])
+  },[apiUrl])
 
   //Fetch diaries
-  const fetchDiaries = async () => {
-    const res = await fetch('https://my-site-diary.onrender.com/api/diaries')
+  // can be wrapped into useCallback
+  const fetchDiaries = async (url) => {
+    const res = await fetch(url)
     const data = await res.json()
 
     return data
@@ -37,7 +39,7 @@ function App() {
 
   // Fetch diary
   // const fetchDiary = async (id) => {
-  //   const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`)
+  //   const res = await fetch(`${apiURL}/api/diaries/${id}`)
   //   const data = await res.json()
 
   //   return data
@@ -45,7 +47,7 @@ function App() {
 
   //Add diary
   const saveDiary = async (diary) => {
-    const res = await fetch('https://my-site-diary.onrender.com/api/diaries/add', {
+    const res = await fetch(`${apiUrl}/api/diaries/add`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -60,7 +62,7 @@ function App() {
 
   //Delete diary
   const deleteDiary = async (id) => {
-    const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`, {
+    const res = await fetch(`${apiUrl}/api/diaries/${id}`, {
       method: 'DELETE',
     })
     //We should control the response status to decide if we will change the state or not.
@@ -82,7 +84,7 @@ function App() {
 const editDiary = async (newDiary, id) => {
   // const diaryToUpdate = await fetchTask(id)
 
-  const res = await fetch(`https://my-site-diary.onrender.com/api/diaries/${id}`, {
+  const res = await fetch(`${apiUrl}/api/diaries/${id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
