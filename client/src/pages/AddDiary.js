@@ -8,9 +8,10 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button' 
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { createEntry } from '../api/createEntry'
 
 
-const AddDiary = ({ saveDiary }) => {
+const AddDiary = () => {
     const navigate = useNavigate();
 
     const [project, setProject] = useState('')
@@ -26,7 +27,8 @@ const AddDiary = ({ saveDiary }) => {
     const onSubmit = (e) => {
         e.preventDefault()
         const date = Date.now()
-        saveDiary({date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
+        createEntry({date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
+        // TODO: handle success error cases
         setProject('')
         setWeather('')
         setResource('')
@@ -37,6 +39,7 @@ const AddDiary = ({ saveDiary }) => {
         setNotes('')
 
         navigate('/dashboard')
+        // TODO: refetch all entries on the dashboard page, alternatively, add new diary using state management
     }
 
   return (

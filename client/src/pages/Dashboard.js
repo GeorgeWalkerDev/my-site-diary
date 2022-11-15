@@ -4,8 +4,9 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import DiariesTable from '../components/DiariesTable'
 import Divider from '@mui/material/Divider'
+import { deleteEntry } from '../api/deleteEntry'
 
-const Dashboard = ({diaries, deleteDiary}) => {
+const Dashboard = ({diaries}) => {
   return (
     <Container maxWidth='xs'>
       <Box sx={{mt: 4}}>
@@ -17,7 +18,7 @@ const Dashboard = ({diaries, deleteDiary}) => {
           <Divider />
           <Typography fontWeight="fontWeightMedium" variant="body1" gutterBottom>No diaries to show</Typography>
         </> :
-        <DiariesTable diaries={diaries} deleteDiary={deleteDiary}/>
+        <DiariesTable diaries={diaries} deleteDiary={deleteEntry}/>
       }
       </Box>
     </Container>
