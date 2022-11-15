@@ -9,6 +9,7 @@ const cors = require('cors')
 const connectDB = require('./config/db')
 
 const diariesRouter = require('./routes/diaries');
+const usersRouter = require('./routes/users');
 
 //Load config
 dotenv.config({ path: './config/config.env' })
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/diaries', diariesRouter)
+app.use('/api/users', usersRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
