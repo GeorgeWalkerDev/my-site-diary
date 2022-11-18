@@ -10,18 +10,19 @@ const connectDB = require('./config/db')
 const passport = require('passport')
 const flash = require('express-flash');
 const session = require('express-session');
+const bodyParser = require('body-parser')
+
 
 const diariesRouter = require('./routes/diaries');
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 //Load config
 dotenv.config({ path: './config/config.env' })
 
 //Initialise passport
-const initilizePassport = require('./config/passport-config')
-initilizePassport(passport, email => {
-  users.find(user => user.email === email)
-})
+const initializePassport = require('./config/passport-config')
+initializePassport(passport)
 
 connectDB()
 
@@ -30,6 +31,10 @@ const app = express();
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,6 +49,7 @@ app.use(passport.session())
 
 app.use('/api/diaries', diariesRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/auth', authRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
