@@ -7,12 +7,21 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 const connectDB = require('./config/db')
+const passport = require('passport')
+const flash = require('express-flash');
+const session = require('express-session');
 
 const diariesRouter = require('./routes/diaries');
 const usersRouter = require('./routes/users');
 
 //Load config
 dotenv.config({ path: './config/config.env' })
+
+//Initialise passport
+const initilizePassport = require('./config/passport-config')
+initilizePassport(passport, email => {
+  users.find(user => user.email === email)
+})
 
 connectDB()
 
@@ -24,6 +33,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash())
+app.use(session( {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/api/diaries', diariesRouter)
 app.use('/api/users', usersRouter)
