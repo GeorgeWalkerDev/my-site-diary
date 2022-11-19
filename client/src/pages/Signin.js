@@ -14,31 +14,26 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 
-const AddDiary = ({ saveDiary }) => {
+const Signin = () => {
     const navigate = useNavigate();
 
-    const [project, setProject] = useState('')
-    const [weather, setWeather] = useState('')
-    const [resource, setResource] = useState('')
-    const [delays, setDelays] = useState('')
-    const [variations, setVariations] = useState('')
-    const [healthsafety, setHealthSafety] = useState('')
-    const [deliveries, setDeliveries] = useState('')
-    const [notes, setNotes] = useState('')
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [password, setPassword] = useState('')
+
 
 
     const onSubmit = (e) => {
         e.preventDefault()
-        const date = Date.now()
-        saveDiary({date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
-        setProject('')
-        setWeather('')
-        setResource('')
-        setDelays('')
-        setVariations('')
-        setHealthSafety('')
-        setDeliveries('')
-        setNotes('')
+
+        //Post to user auth to implement
+
+        setEmail('')
+        setFirstName('')
+        setLastName('')
+        setPassword('')
+
 
         navigate('/dashboard')
     }
@@ -119,4 +114,4 @@ const AddDiary = ({ saveDiary }) => {
   )
 }
 
-export default AddDiary
+export default Signin

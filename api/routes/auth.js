@@ -4,8 +4,8 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 
 // @desc    Authenticate user
-// @route   POST /auth/local
-router.post('/local',  passport.authenticate('local', {
+// @route   POST /auth/signin
+router.post('/signin',  passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/signin',  
     failureFlash: true
