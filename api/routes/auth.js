@@ -11,6 +11,7 @@ router.post('/local',  passport.authenticate('local', {
     failureFlash: true
 }))
 
+
 // @desc    Logout user
 // @route   /auth/logout
 router.get('/logout', (req, res, next) => {
