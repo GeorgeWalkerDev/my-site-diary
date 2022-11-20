@@ -20,10 +20,6 @@ const authRouter = require('./routes/auth');
 //Load config
 dotenv.config({ path: './config/config.env' })
 
-//Initialise passport
-const initializePassport = require('./config/passport-config')
-initializePassport(passport)
-
 connectDB()
 
 const app = express();
@@ -46,6 +42,10 @@ app.use(session( {
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
+//Initialise passport
+const initializePassport = require('./config/passport-config')
+initializePassport(passport)
 
 app.use('/api/diaries', diariesRouter)
 app.use('/api/users', usersRouter)

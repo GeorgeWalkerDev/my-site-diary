@@ -12,26 +12,22 @@ import Link from '@mui/material/Link'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { signinUser } from '../api/signinUser';
 
 
 const Signin = () => {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
-
-
 
     const onSubmit = (e) => {
         e.preventDefault()
 
         //Post to user auth to implement
+        signinUser({email, password})
 
         setEmail('')
-        setFirstName('')
-        setLastName('')
         setPassword('')
 
 
@@ -66,6 +62,8 @@ const Signin = () => {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -77,6 +75,8 @@ const Signin = () => {
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>

@@ -5,11 +5,19 @@ const bcrypt = require('bcrypt')
 
 // @desc    Authenticate user
 // @route   POST /auth/signin
-router.post('/signin',  passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signin',  
-    failureFlash: true
-}))
+router.post('/signin',  (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) throw err
+        if (!user) res.send('No user exists')
+        else {
+            req.logIn(user, (err) => {
+                if (err) throw err
+                res.send('Successfully authenticated')
+                console.log(req.user)
+            })
+        }
+    })(req,res,next)
+});
 
 
 // @desc    Logout user

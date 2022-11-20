@@ -18,13 +18,33 @@ router.get('/', async (req, res) => {
       }
 })
 
+// @desc    Get user
+// @route   GET /users/:id
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+            .lean()
+  
+        res.send(user)
+      } catch (error) {
+          console.error(error)
+      }
+})
+
+
 // @desc    Create user
 // @route   POST /users
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     try {
-        req.body.password = await bcrypt.hash(req.body.password, 10)
-        const user = await User.create(req.body)
-        res.send(user)
+         User.findOne({email: req.body.email}, async (err, user) => {
+            if (err) throw err
+            if (user) res.send('User already exists')
+            if (!user) {
+                req.body.password = await bcrypt.hash(req.body.password, 10)
+                const user = await User.create(req.body)
+                res.send(user)
+            }
+        })
     } catch (error) {
         res.send(error)
     }
