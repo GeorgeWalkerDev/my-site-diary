@@ -10,6 +10,7 @@ import Link from '@mui/material/Link'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { createUser } from '../api/createUser'
 
 
 const Signup = () => {
@@ -26,6 +27,7 @@ const Signup = () => {
         e.preventDefault()
 
         //Create user to implement
+        createUser({email, firstName, lastName, password})
 
         setEmail('')
         setFirstName('')
@@ -33,7 +35,7 @@ const Signup = () => {
         setPassword('')
 
 
-        navigate('/dashboard')
+        navigate('/signin')
     }
 
   return (
@@ -65,6 +67,8 @@ const Signup = () => {
                         id="firstName"
                         label="First Name"
                         autoFocus
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -75,6 +79,8 @@ const Signup = () => {
                         label="Last Name"
                         name="lastName"
                         autoComplete="family-name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -85,6 +91,8 @@ const Signup = () => {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -96,6 +104,8 @@ const Signup = () => {
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         />
                     </Grid>
                     </Grid>
