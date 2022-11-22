@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const verifyJWT = require('../middleware/verifyJWT')
 
 const Diary = require('../models/Diary')
+
+router.use(verifyJWT)
 
 // @desc    Show all diaries
 // @route   GET /diaries

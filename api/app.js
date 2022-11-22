@@ -24,29 +24,33 @@ connectDB()
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash())
 app.use(session( {
   secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }))
+app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(passport.initialize())
 app.use(passport.session())
 
 //Initialise passport
-const initializePassport = require('./config/passport-config')
+const initializePassport = require('./config/passport-config');
 initializePassport(passport)
 
+//Routes
 app.use('/api/diaries', diariesRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)

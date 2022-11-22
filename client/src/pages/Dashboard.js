@@ -5,8 +5,10 @@ import Typography from '@mui/material/Typography'
 import DiariesTable from '../components/DiariesTable'
 import Divider from '@mui/material/Divider'
 import { deleteEntry } from '../api/deleteEntry'
+// import { getUser } from '../api/getUser';
 
 const Dashboard = ({diaries}) => {
+  // getUser()
   return (
     <Container maxWidth='xs'>
       <Box sx={{mt: 4}}>

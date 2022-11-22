@@ -13,12 +13,13 @@ import Link from '@mui/material/Link'
 import AddIcon from '@mui/icons-material/Add';
 import {useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route, Link as RouterLink } from 'react-router-dom';
-import { fetchEntries, updateEntry } from './api';
+import { fetchEntries, updateEntry, getUser } from './api';
 
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [diaryData, setDiaryData] = useState([])
+  const [userData, setUserData] = useState(null)
 
 
   // TODO: remove useEffect from App component at all once dashboard and diary page is refactored

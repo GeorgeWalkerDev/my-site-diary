@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
+const { authUser } = require('../middleware/authUser')
+const verifyJWT = require('../middleware/verifyJWT')
 
 const User = require('../models/User')
+
+router.use(verifyJWT)
 
 // @desc    Get all users
 // @route   GET /users
@@ -19,18 +23,10 @@ router.get('/', async (req, res) => {
 })
 
 // @desc    Get user
-// @route   GET /users/:id
-router.get('/:id', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
-            .lean()
-  
-        res.send(user)
-      } catch (error) {
-          console.error(error)
-      }
+// @route   GET /users/user_data
+router.get('/user_data', authUser, (req, res) => {
+    res.send(req.user)
 })
-
 
 // @desc    Create user
 // @route   POST /users

@@ -12,8 +12,8 @@ import Link from '@mui/material/Link'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { signinUser } from '../api/signinUser';
-
+import { signInUser } from '../api/signInUser';
+import { getUser } from '../api/getUser';
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Signin = () => {
         e.preventDefault()
 
         //Post to user auth to implement
-        signinUser({email, password})
+        signInUser({email, password})
 
         setEmail('')
         setPassword('')

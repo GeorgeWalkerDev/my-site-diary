@@ -1,23 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const loginLimiter = require('../middleware/loginLimiter')
+const { handleLogin } = require('../controllers/authController')
 const bcrypt = require('bcrypt')
 
 // @desc    Authenticate user
 // @route   POST /auth/signin
-router.post('/signin',  (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) throw err
-        if (!user) res.send('No user exists')
-        else {
-            req.logIn(user, (err) => {
-                if (err) throw err
-                res.send('Successfully authenticated')
-                console.log(req.user)
-            })
-        }
-    })(req,res,next)
-});
+router.post('/signin', loginLimiter, handleLogin);
+
+// @desc    Authenticate user
+// @route   POST /auth/refresh
+router.post('/refresh',)
+
 
 
 // @desc    Logout user
