@@ -10,9 +10,11 @@ const handleLogin = async (req, res) => {
 
     const foundUser = await User.findOne({ email: email }).exec();
 
-    if (!foundUser) return res.sendStatus(401); //Unauthorized 
+    if (!foundUser) return res.sendStatus(401); //Unauthorized
+
     // evaluate password 
     const match = await bcrypt.compare(password, foundUser.password);
+
     if (match) {
         // const roles = Object.values(foundUser.roles).filter(Boolean);
         // create JWTs
@@ -24,12 +26,12 @@ const handleLogin = async (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '10s' }
+            { expiresIn: '60s' }
         );
-        const newRefreshToken = jwt.sign(
+        const refreshToken = jwt.sign(
             { "email": foundUser.email },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '15s' }
+            { expiresIn: '60s' }
         );
 
         // Changed to let keyword
@@ -59,17 +61,17 @@ const handleLogin = async (req, res) => {
         // }
 
         // Saving refreshToken with current user
-        // foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-        // const result = await foundUser.save();
+        foundUser.refreshToken = refreshToken;
+        const result = await foundUser.save();
 
         // Creates Secure Cookie with refresh token
-        res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, SameSite: 'none', maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, SameSite: 'none', expiresIn: '1d'});
 
         // Send authorization roles and access token to user
         res.json({ accessToken });
 
     } else {
-        res.sendStatus(401);
+        res.status(401).json({ message: 'Unauthorized' })
     }
 }
 

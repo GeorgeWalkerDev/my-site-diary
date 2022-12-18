@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const loginLimiter = require('../middleware/loginLimiter')
 const { handleLogin } = require('../controllers/authController')
+const { handleRefreshToken } = require('../controllers/refreshTokenController')
 const bcrypt = require('bcrypt')
 
 // @desc    Authenticate user
@@ -11,9 +12,7 @@ router.post('/signin', loginLimiter, handleLogin);
 
 // @desc    Authenticate user
 // @route   POST /auth/refresh
-router.post('/refresh',)
-
-
+router.get('/refresh', handleRefreshToken)
 
 // @desc    Logout user
 // @route   /auth/logout
