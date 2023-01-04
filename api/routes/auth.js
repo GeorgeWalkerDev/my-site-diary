@@ -1,27 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const passport = require('passport')
 const loginLimiter = require('../middleware/loginLimiter')
-const { handleLogin } = require('../controllers/authController')
-const { handleRefreshToken } = require('../controllers/refreshTokenController')
-const bcrypt = require('bcrypt')
+const { login, logout, refresh } = require('../controllers/authController')
 
 // @desc    Authenticate user
 // @route   POST /auth/signin
-router.post('/signin', loginLimiter, handleLogin);
+router.post('/signin', loginLimiter, login);
 
 // @desc    Authenticate user
 // @route   POST /auth/refresh
-router.get('/refresh', handleRefreshToken)
+router.get('/refresh', refresh)
 
 // @desc    Logout user
 // @route   /auth/logout
-router.get('/logout', (req, res, next) => {
-    req.logout((error) => {
-        if (error) {return next(error)}
-        res.redirect('/')
-    })
-  })
+router.post('/logout', logout)
   
-
 module.exports = router;
