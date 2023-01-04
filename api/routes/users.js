@@ -3,15 +3,15 @@ const router = express.Router()
 const { getAllUsers, deleteUser, getUser, handleNewUser  } = require('../controllers/usersController')
 const verifyJWT = require('../middleware/verifyJWT')
 
-router.use(verifyJWT)
+// router.use(verifyJWT)
 
 // @desc    Get all users
 // @route   GET /users
-router.get('/', getAllUsers)
+router.get('/',verifyJWT, getAllUsers)
 
 // @desc    Get user
 // @route   GET /user/:id
-router.get('/:id', getUser)
+router.get('/:id', verifyJWT, getUser)
 
 // @desc    Create user
 // @route   POST /users
@@ -19,7 +19,7 @@ router.post('/', handleNewUser)
 
 // @desc    Delete user
 // @route   DELETE /users
-router.delete('/', deleteUser)
+router.delete('/', verifyJWT, deleteUser)
 
 // @desc    Update user
 // @route   PUT /users
