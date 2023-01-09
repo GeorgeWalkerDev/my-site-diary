@@ -8,7 +8,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import {Link as RouterLink} from 'react-router-dom'
 
 
-const Signup = () => {
+const Home = () => {
 
     return (
     <Container maxWidth="xs">
@@ -29,4 +29,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default Home

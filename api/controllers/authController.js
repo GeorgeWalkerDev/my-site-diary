@@ -27,15 +27,14 @@ const login = async (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '60s' }
+            { expiresIn: '200s' }
         );
         const refreshToken = jwt.sign(
             { "email": foundUser.email },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '60s' }
+            { expiresIn: '200s' }
         );
 
-        // Changed to let keyword
         // let newRefreshTokenArray =
         //     !cookies?.jwt
         //         ? foundUser.refreshToken
@@ -82,7 +81,7 @@ const login = async (req, res) => {
 const refresh = (req, res) => {
     const cookies = req.cookies
 
-    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
+    if (!cookies?.jwt) return res.status(401).json({ message: "Unauthorized" })
 
     const refreshToken = cookies.jwt
 
@@ -90,11 +89,11 @@ const refresh = (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         asyncHandler(async (err, decoded) => {
-            if (err) return res.status(403).json({ message: 'Forbidden' })
+            if (err) return res.status(403).json({ message: "Forbidden" })
 
             const foundUser = await User.findOne({ username: decoded.username }).exec()
 
-            if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
+            if (!foundUser) return res.status(401).json({ message: "Unauthorized" })
 
             const accessToken = jwt.sign(
                 {

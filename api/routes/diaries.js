@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // @desc    Process add form
-// @route   POST /stories
+// @route   POST /diaries
 router.post('/add', async (req, res) => {
     try {
       // req.body.user = req.user.id
@@ -33,7 +33,7 @@ router.post('/add', async (req, res) => {
   })
 
 // @desc    Update story
-// @route   PUT /stories/:id
+// @route   PUT /diaries/:id
 router.put('/:id', async (req, res) => {
   try {
     let diary = await Diary.findById(req.params.id).lean()
@@ -49,7 +49,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // @desc    Delete story
-// @route   DELETE /stories/:id
+// @route   DELETE /diaries/:id
 router.delete('/:id', async (req, res) => {
   try {
     let diary = await Diary.findById(req.params.id).lean()
@@ -61,7 +61,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 // @desc    Show single story
-// @route   GET /stories/:id
+// @route   GET /diaries/:id
 router.get('/:id', async (req, res) => {
   try {
     let diary = await Diary.findById(req.params.id).lean()

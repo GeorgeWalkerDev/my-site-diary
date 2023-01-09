@@ -51,9 +51,9 @@ const initializePassport = require('./config/passport-config');
 initializePassport(passport)
 
 //Routes
-app.use('/api/diaries', diariesRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/auth', authRouter)
+app.use('/diaries', diariesRouter)
+app.use('/users', usersRouter)
+app.use('/auth', authRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

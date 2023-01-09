@@ -11,28 +11,15 @@ import EditDiary from "./pages/EditDiary";
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link'
 import AddIcon from '@mui/icons-material/Add';
-import {useEffect, useState} from 'react';
+import { useState} from 'react';
 import { BrowserRouter, Routes, Route, Link as RouterLink } from 'react-router-dom';
-import { fetchEntries, updateEntry, getUser } from './api';
+import { updateEntry } from './api';
+import Prefetch from "./features/auth/Prefetch";
 
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [diaryData, setDiaryData] = useState([])
-  const [userData, setUserData] = useState(null)
 
-
-  // TODO: remove useEffect from App component at all once dashboard and diary page is refactored
-  useEffect( () => {
-    const getDiaries = async () => {
-      const diariesFromServer = await fetchEntries();
-      setDiaryData(diariesFromServer)
-    }
-
-    getDiaries()
-  }, []);
-
-  
   const fabStyle = {
     margin: 0,
     top: 'auto',
@@ -51,11 +38,14 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/signin" element={<Signin />}/>
-        <Route path="/dashboard" element={<Dashboard diaries={diaryData} />}/>
-        <Route path="/diaries" element={<Diaries />}/>
-        <Route path="/diaries/:id" element={<Diary diaries={diaryData}/>} />
-        <Route path="/diaries/add" element={<AddDiary />}/>
-        <Route path="/diaries/edit/:id" element={<EditDiary editDiary={updateEntry} diaries={diaryData}/>}/>
+        <Route element={<Prefetch />}>
+          <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/diaries" element={<Diaries />}/>
+          <Route path="/diaries/:id" element={<Diary />} />
+          <Route path="/diaries/add" element={<AddDiary />}/>
+          <Route path="/diaries/edit/:id" element={<EditDiary editDiary={updateEntry} />}/>
+        </Route>
+
       </Routes>
       <Link component={RouterLink} to='/diaries/add'>
         <Fab style={fabStyle} color="success" aria-label="add">

@@ -6,7 +6,7 @@ export const getUser = async () => {
   // const res = await fetch(`${apiUrl}/api/users/user_data`, {credentials: 'include'})
   // const data = await res.json()
   try {
-    const response = await axios.get(`${apiUrl}/api/users/user_data`, {withCredentials: true});
+    const response = await axios.get(`${apiUrl}/users/user_data`, {withCredentials: true});
     console.log(response);
   } catch (error) {
     console.error(error);

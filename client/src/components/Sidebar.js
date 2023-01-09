@@ -10,8 +10,32 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
+import { useSendLogoutMutation } from "../features/auth/authApiSlice";
+import { useEffect } from "react";
 
 const Sidebar = ({onClose, isDrawerOpen}) => {
+
+    const navigate = useNavigate()
+    // const { pathname } = useLocation()
+
+    const [sendLogout, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useSendLogoutMutation()
+
+    useEffect(() => {
+        if (isSuccess) navigate('/')
+    },[isSuccess, navigate])
+
+    const onLogoutClicked = () => sendLogout()
+
+    if (isLoading) return <p>Logging out...</p>
+
+    if (isError) return <p>Error: {error.data?.message}</p>
 
     return (
     <>
@@ -39,7 +63,7 @@ const Sidebar = ({onClose, isDrawerOpen}) => {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    <Link color="inherit" underline="none" component={RouterLink} to={'/'}>
+                    <Link color="inherit" underline="none" onClick={onLogoutClicked}>
                         <ListItem disablePadding>
                             <ListItemButton>
                                 <ListItemIcon><LogoutIcon /></ListItemIcon>
