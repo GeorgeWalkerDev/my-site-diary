@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 
 // @desc    Process add form
 // @route   POST /diaries
-router.post('/add', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
       // req.body.user = req.user.id
       const diary = await Diary.create(req.body)

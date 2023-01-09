@@ -3,23 +3,16 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import LoadingButton from '@mui/lab/LoadingButton';
 import Divider from '@mui/material/Divider'
-import { useEffect, useState } from 'react'
 import { formatDate } from '../helpers/helpers';
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { selectDiaryById } from '../features/diaries/diariesApiSlice';
 
-const Diary = ({diaries}) => {
+const Diary = () => {
 
-  const [diary, setDiary] = useState(null)
   let { id } = useParams()
 
-  useEffect(() => {
-    if (diaries.length === 0) {
-      return
-    } else {
-      const diary = diaries.filter(diary => diary._id === id)
-      setDiary(diary)
-    }
-  },[diaries, id])
+  const diary = useSelector(state => selectDiaryById(state, id))
 
   if(!diary) {
     return (
@@ -31,13 +24,11 @@ const Diary = ({diaries}) => {
       <Container maxWidth="xs">
         <Box sx={{mt: 4}}>
           {
-            diary.length === 0
-            ? <Typography variant="h5">Nothing to show, click the add button to add a diary</Typography>
-            :<>
-              <Typography variant="h4" gutterBottom>{formatDate(diary[0].date, 'MMMM Do YYYY, h:mm:ss a')}</Typography>
-              <Typography variant="h6" gutterBottom>{diary[0].project}</Typography>
+            <>
+              <Typography variant="h4" gutterBottom>{formatDate(diary.date, 'MMMM Do YYYY, h:mm:ss a')}</Typography>
+              <Typography variant="h6" gutterBottom>{diary.project}</Typography>
               <Divider />
-              <Typography sx={{}} variant="body1">{diary[0].notes}</Typography>
+              <Typography sx={{}} variant="body1">{diary.notes}</Typography>
             </>
           }
           

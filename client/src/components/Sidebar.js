@@ -47,7 +47,7 @@ const Sidebar = ({onClose, isDrawerOpen}) => {
             <Box p={2} sx={{width:250}} role="presentation">
                 <img className="logo logo-sidebar" src={require('../assets/images/logos/png/logo-no-background.png')} alt="My Site Diary Logo" />
                 <List>
-                    <Link color="inherit" underline="none" component={RouterLink} to={'/diaries'}>
+                    <Link color="inherit" underline="none" component={RouterLink} to={'/dashboard/diaries'}>
                         <ListItem disablePadding>
                             <ListItemButton>
                                     <ListItemIcon><BookmarkIcon /></ListItemIcon>

@@ -9,7 +9,6 @@ import { formatDate, truncate } from '../helpers/helpers';
 import { Link as RouterLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { selectDiaryById } from '../features/diaries/diariesApiSlice';
-import { deleteEntry } from '../api/deleteEntry';
 
 const Diary = ({ diaryId }) => {
 
@@ -27,17 +26,17 @@ const Diary = ({ diaryId }) => {
             >
                 
                 <TableCell component="th" scope="row">
-                    <Link component={RouterLink} to={`/diaries/${diaryId}`}>
+                    <Link component={RouterLink} to={`/dashboard/${diaryId}`}>
                         {formatDate(diary.createdAt, 'MMMM Do YYYY, h:mm:ss a')}
                     </Link>
                 </TableCell>
                 <TableCell>{truncate(diary.notes, 30)}</TableCell>
                 <TableCell>{diary.project}</TableCell>
                 <TableCell>
-                    <Link component={RouterLink} to={`/diaries/edit/${diaryId}`}>
+                    <Link component={RouterLink} to={`/dashboard/edit/${diaryId}`}>
                         <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
                     </Link>
-                    <IconButton onClick={() => deleteEntry(diaryId)} size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
+                    <IconButton size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
                 </TableCell>
             </TableRow>
       )

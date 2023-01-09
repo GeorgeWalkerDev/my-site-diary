@@ -5,14 +5,22 @@ import Typography from '@mui/material/Typography'
 import FormGroup from '@mui/material/FormGroup'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button' 
+import Button from '@mui/material/Button'
+import { useEffect } from 'react'
+import { useAddNewDiaryMutation } from '../features/diaries/diariesApiSlice'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { createEntry } from '../api/createEntry'
 
 
 const AddDiary = () => {
-    const navigate = useNavigate();
+    const [addNewDiary, {
+        isLoading,
+        isSuccess,
+        // isError,
+        // error
+    }] = useAddNewDiaryMutation()
+
+    const navigate = useNavigate()
 
     const [project, setProject] = useState('')
     const [weather, setWeather] = useState('')
@@ -23,24 +31,31 @@ const AddDiary = () => {
     const [deliveries, setDeliveries] = useState('')
     const [notes, setNotes] = useState('')
 
+    useEffect(() => {
+        if (isSuccess) {
+            setProject('')
+            setWeather('')
+            setResource('')
+            setDelays('')
+            setVariations('')
+            setHealthSafety('')
+            setDeliveries('')
+            setNotes('')
+            navigate('/dashboard/diaries')
+        }
+    }, [isSuccess, navigate])
 
-    const onSubmit = (e) => {
+    const canSave = !isLoading
+
+    const onSaveDiaryClicked = async (e) => {
         e.preventDefault()
         const date = Date.now()
-        createEntry({date, project, weather, resource, delays, variations, healthsafety, deliveries, notes})
-        // TODO: handle success error cases
-        setProject('')
-        setWeather('')
-        setResource('')
-        setDelays('')
-        setVariations('')
-        setHealthSafety('')
-        setDeliveries('')
-        setNotes('')
 
-        navigate('/dashboard')
-        // TODO: refetch all entries on the dashboard page, alternatively, add new diary using state management
+        if (canSave) {
+            await addNewDiary({ date, project, weather, resource, delays, variations, healthsafety, deliveries, notes })
+        }
     }
+
 
   return (
     <Container maxWidth="xs">
@@ -48,7 +63,7 @@ const AddDiary = () => {
             <Paper>
                 <Container sx={{py: 2}}>
                     <Typography variant="h4" gutterBottom>Add Diary</Typography>
-                    <form onSubmit={(e) => onSubmit(e)}>
+                    <form onSubmit={onSaveDiaryClicked}>
                         <FormGroup>
                             <FormControl sx={{mt:2}}>
                                 <TextField variant="outlined" label="Project Name" multiline value={project} onChange={(e) => setProject(e.target.value)}/>

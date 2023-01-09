@@ -9,7 +9,6 @@ const cors = require('cors')
 const connectDB = require('./config/db')
 const passport = require('passport')
 const flash = require('express-flash');
-const session = require('express-session');
 const bodyParser = require('body-parser')
 
 
@@ -37,18 +36,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash())
-app.use(session( {
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true
-}))
-app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(passport.initialize())
-app.use(passport.session())
 
-//Initialise passport
-const initializePassport = require('./config/passport-config');
-initializePassport(passport)
 
 //Routes
 app.use('/diaries', diariesRouter)

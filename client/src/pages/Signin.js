@@ -17,6 +17,8 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from '../features/auth/authSlice';
 import { useLoginMutation } from '../features/auth/authApiSlice';
 
+import usePersist from '../hooks/usePersist'
+
 const Signin = () => {
     const userRef = useRef()
     const errRef = useRef()
@@ -26,6 +28,7 @@ const Signin = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
+    const [persist, setPersist] = usePersist()
 
     const [login, {isLoading}] = useLoginMutation()
 
@@ -56,6 +59,8 @@ const Signin = () => {
         userRef.current.focus()
     }, [])
 
+
+    const handleToggle = () => setPersist(prev => !prev)
 
     // Error message
     useEffect(() => {
@@ -116,6 +121,8 @@ const Signin = () => {
                                     <FormControlLabel
                                         control={<Checkbox value="remember" color="primary" />}
                                         label="Remember me"
+                                        onChange={handleToggle}
+                                        checked={persist}
                                         />
                                 </Grid>
                             </Grid>

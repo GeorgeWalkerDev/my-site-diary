@@ -18,7 +18,11 @@ const DiariesTable = () => {
         isSuccess,
         isError,
         error
-    } = useGetDiaryQuery()
+    } = useGetDiaryQuery(undefined, {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
@@ -33,8 +37,7 @@ const DiariesTable = () => {
         const { ids } = diaries
 
         const tableContent = ids?.length
-            ? ids.map(diaryId => <Diary key={diaryId} diaryId={diaryId} />)
-            : null
+            && ids.map(diaryId => <Diary key={diaryId} diaryId={diaryId} />)
 
         content = (
             <TableContainer component={Paper}>
