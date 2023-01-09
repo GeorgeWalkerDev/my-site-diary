@@ -24,7 +24,7 @@ connectDB()
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000' || 'my-site-diary.netlify.app',
+  origin: 'my-site-diary.netlify.app',
   credentials: true
 }))
 app.use(logger('dev'));
