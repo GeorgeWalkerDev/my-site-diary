@@ -23,8 +23,16 @@ connectDB()
 
 const app = express();
 
+const whitelist = ['http://my-site-diary.netlify.app/', 'http://localhost:3000']
+
 const corsOptions ={
-  origin:'http://localhost:3000', 
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }, 
   credentials: true,
   optionSuccessStatus: 200,
 }
