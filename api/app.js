@@ -22,10 +22,16 @@ dotenv.config({ path: './config/config.env' })
 connectDB()
 
 const app = express();
+const whitelist = ['https://my-site-diary.netlify.app', 'http://localhost:3000/']
 
 app.use(cors({
-  origin: 'https://my-site-diary.netlify.app/',
-  credentials: true
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }))
 app.use(logger('dev'));
 app.use(express.json());
