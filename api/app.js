@@ -25,9 +25,9 @@ const app = express();
 const whitelist = ['https://my-site-diary.netlify.app', 'http://localhost:3000/']
 
 const corsOptions ={
-   origin:'*', 
-   credentials:true,
-   optionSuccessStatus:200,
+   origin:'https://my-site-diary.netlify.app', 
+   credentials: true,
+   optionSuccessStatus: 200,
 }
 
 app.use(cors(corsOptions)) 
