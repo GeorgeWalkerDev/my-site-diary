@@ -6,30 +6,30 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button' 
-import { Link as RouterLink, useParams, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useUpdateDiaryMutation } from '../features/diaries/diariesApiSlice'
 
-const EditDiary = ({ diary }) => {
+const EditDiaryForm = ({ diary }) => {
 
     const [updateNote, {
         isLoading,
         isSuccess,
-        isError,
-        error
-    }] = useUpdateNoteMutation()
+        // isError,
+        // error
+    }] = useUpdateDiaryMutation()
 
     const navigate = useNavigate();
 
-    const [project, setProject] = useState('')
-    const [weather, setWeather] = useState('')
-    const [resource, setResource] = useState('')
-    const [delays, setDelays] = useState('')
-    const [variations, setVariations] = useState('')
-    const [healthsafety, setHealthSafety] = useState('')
-    const [deliveries, setDeliveries] = useState('')
-    const [notes, setNotes] = useState('')
-    const [date, setDate] = useState('')
+    const [project, setProject] = useState(diary.project)
+    const [weather, setWeather] = useState(diary.weather)
+    const [resource, setResource] = useState(diary.resource)
+    const [delays, setDelays] = useState(diary.delays)
+    const [variations, setVariations] = useState(diary.variations)
+    const [healthsafety, setHealthSafety] = useState(diary.healthsafety)
+    const [deliveries, setDeliveries] = useState(diary.deliveries)
+    const [notes, setNotes] = useState(diary.notes)
+    const [date, setDate] = useState(diary.date)
 
     useEffect(() => {
 
@@ -51,8 +51,8 @@ const EditDiary = ({ diary }) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if (!isLoading){
-            const editedDiary = {id, date, project, weather, resource, delays, variations, healthsafety, deliveries, notes}
-            await updateNote({editedDiary})
+            const editedDiary = {id: diary._id, project, weather, resource, delays, variations, healthsafety, deliveries, notes}
+            await updateNote(editedDiary)
         }
     }
 
@@ -107,4 +107,4 @@ const EditDiary = ({ diary }) => {
   )
 }
 
-export default EditDiary
+export default EditDiaryForm
