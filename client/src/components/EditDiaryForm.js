@@ -29,7 +29,7 @@ const EditDiaryForm = ({ diary }) => {
     const [healthsafety, setHealthSafety] = useState(diary.healthsafety)
     const [deliveries, setDeliveries] = useState(diary.deliveries)
     const [notes, setNotes] = useState(diary.notes)
-    const [date, setDate] = useState(diary.date)
+    // const [date, setDate] = useState(diary.date)
 
     useEffect(() => {
 
@@ -42,7 +42,7 @@ const EditDiaryForm = ({ diary }) => {
             setHealthSafety('')
             setDeliveries('')
             setNotes('')
-            setDate('')
+            // setDate('')
             navigate('/dashboard/diaries')
         }
 

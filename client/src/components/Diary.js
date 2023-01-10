@@ -6,14 +6,35 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { formatDate, truncate } from '../helpers/helpers';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { selectDiaryById } from '../features/diaries/diariesApiSlice';
+import { useDeleteDiaryMutation } from '../features/diaries/diariesApiSlice';
 
 const Diary = ({ diaryId }) => {
 
-    const diary = useSelector(state => selectDiaryById(state, diaryId))
+    const navigate = useNavigate()
 
+    const [deleteDiary, {
+        isSuccess: isDelSuccess,
+        // isError: isDelError,
+        // error: delerror
+    }] = useDeleteDiaryMutation()
+
+    useEffect(() => {
+
+        if (isDelSuccess) {
+            navigate('/dashboard/diaries')
+        }
+
+    }, [isDelSuccess, navigate])
+
+    const onDeleteDiaryClicked = async () => {
+        await deleteDiary({ id: diaryId })
+    }
+
+    const diary = useSelector(state => selectDiaryById(state, diaryId))
 
     if (diary) {
         // const created = formatDate(diary.createdAt, 'MMMM Do YYYY, h:mm:ss a')
@@ -36,7 +57,7 @@ const Diary = ({ diaryId }) => {
                     <Link component={RouterLink} to={`/dashboard/edit/${diaryId}`}>
                         <IconButton size="small" color='success' aria-label='edit'><EditIcon/></IconButton>
                     </Link>
-                    <IconButton size="small" color='error' aria-label='delete'><DeleteIcon/></IconButton>
+                    <IconButton size="small" color='error' aria-label='delete' onClick={onDeleteDiaryClicked}><DeleteIcon/></IconButton>
                 </TableCell>
             </TableRow>
       )

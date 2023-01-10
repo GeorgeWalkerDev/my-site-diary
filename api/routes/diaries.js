@@ -68,10 +68,10 @@ router.patch('/', async (req, res) => {
 
 // @desc    Delete story
 // @route   DELETE /diaries/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/', async (req, res) => {
   try {
-    let diary = await Diary.findById(req.params.id).lean()
-    await Diary.deleteOne({ _id: req.params.id })
+    let diary = await Diary.findById(req.body.id).lean()
+    await Diary.deleteOne({ _id: req.body.id })
     res.send(diary)
   } catch (err) {
     console.error(err)
