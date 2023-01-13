@@ -24,7 +24,11 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  refreshToken: [String]
+  refreshToken: [String],
+  roles: {
+    type: [String],
+    default: ['User']
+  }
 })
 
 module.exports = mongoose.model('User', UserSchema)

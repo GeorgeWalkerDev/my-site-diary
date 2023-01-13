@@ -3,8 +3,6 @@ const router = express.Router()
 const { getAllUsers, deleteUser, getUser, handleNewUser  } = require('../controllers/usersController')
 const verifyJWT = require('../middleware/verifyJWT')
 
-// router.use(verifyJWT)
-
 // @desc    Get all users
 // @route   GET /users
 router.get('/',verifyJWT, getAllUsers)
