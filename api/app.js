@@ -1,21 +1,18 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const connectDB = require('./config/db');
-const passport = require('passport');
 const flash = require('express-flash');
 const bodyParser = require('body-parser');
+const connectDB = require('./config/db');
 
 const diariesRouter = require('./routes/diaries');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
-//Load config
+// Load config
 dotenv.config({ path: './config/config.env' });
 
 connectDB();
@@ -53,7 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
-//Routes
+// Routes
 app.use('/diaries', diariesRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
@@ -64,7 +61,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

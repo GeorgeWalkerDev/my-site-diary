@@ -16,6 +16,7 @@ const Diary = () => {
   if (!diary) {
     return <LoadingButton />;
   }
+
   return (
     <Container maxWidth="xs">
       <Box sx={{ mt: 4 }}>

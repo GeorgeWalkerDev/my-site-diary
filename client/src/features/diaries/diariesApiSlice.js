@@ -18,7 +18,7 @@ export const diaryApiSlice = apiSlice.injectEndpoints({
         });
         return diaryAdapter.setAll(initialState, loadedDiary);
       },
-      providesTags: (result) => {
+      providesTags: (result, error, arg) => {
         if (result?.ids) {
           return [
             { type: 'Diary', id: 'LIST' },

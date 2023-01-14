@@ -18,7 +18,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         });
         return usersAdapter.setAll(initialState, loadedUsers);
       },
-      providesTags: (result) => {
+      providesTags: (result, error, arg) => {
         if (result?.ids) {
           return [
             { type: 'User', id: 'LIST' },

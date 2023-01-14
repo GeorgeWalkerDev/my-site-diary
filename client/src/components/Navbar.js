@@ -31,11 +31,12 @@ function Navbar({ sideBarClick }) {
           >
             <img
               className="logo"
+              // eslint-disable-next-line global-require
               src={require('../assets/images/logos/png/logo-white-no-background.png')}
               alt="My Site Diary Logo"
             />
           </Link>
-          <Button component={RouterLink} to={'/signin'} color="inherit">
+          <Button component={RouterLink} to="/signin" color="inherit">
             Login
           </Button>
         </Toolbar>

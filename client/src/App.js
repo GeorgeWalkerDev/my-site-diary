@@ -1,16 +1,16 @@
-import Public from './pages/Public';
-import Signup from './pages/Signup';
-import Signin from './pages/Signin';
-import Dashboard from './pages/Dashboard';
-import Welcome from './pages/Welcome';
-import Diary from './pages/Diary';
-import AddDiary from './pages/AddDiary';
-import Diaries from './pages/Diaries';
-import EditDiary from './pages/EditDiary';
-import Layout from './pages/Layout';
 import { Routes, Route } from 'react-router-dom';
 import Prefetch from './features/auth/Prefetch';
 import PersistLogin from './features/auth/PersistLogin';
+import Layout from './pages/Layout';
+import Signup from './pages/Signup';
+import Signin from './pages/Signin';
+import Dashboard from './pages/Dashboard';
+import Diaries from './pages/Diaries';
+import Diary from './pages/Diary';
+import AddDiary from './pages/AddDiary';
+import EditDiary from './pages/EditDiary';
+import Public from './pages/Public';
+import Welcome from './pages/Welcome';
 
 function App() {
   // TODO: Reuse /diaries/:id as diaries/edit/:id

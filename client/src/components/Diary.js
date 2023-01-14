@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import IconButton from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { formatDate, truncate } from '../helpers/helpers';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { selectDiaryById } from '../features/diaries/diariesApiSlice';
-import { useDeleteDiaryMutation } from '../features/diaries/diariesApiSlice';
+import { formatDate, truncate } from '../helpers/helpers';
+import {
+  selectDiaryById,
+  useDeleteDiaryMutation,
+} from '../features/diaries/diariesApiSlice';
 
 const Diary = ({ diaryId }) => {
   const navigate = useNavigate();
@@ -69,7 +70,8 @@ const Diary = ({ diaryId }) => {
         </TableCell>
       </TableRow>
     );
-  } else return null;
+  }
+  return null;
 };
 
 export default Diary;
