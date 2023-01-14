@@ -1,12 +1,5 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = () => <Outlet />;
 
-  return (
-    <>
-      <Outlet />
-    </>
-  )
-}
-
-export default Dashboard
+export default Dashboard;
