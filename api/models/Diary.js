@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const DiarySchema = new mongoose.Schema({
   project: {
@@ -34,6 +34,6 @@ const DiarySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-})
+});
 
-module.exports = mongoose.model('Diary', DiarySchema)
+module.exports = mongoose.model('Diary', DiarySchema);
