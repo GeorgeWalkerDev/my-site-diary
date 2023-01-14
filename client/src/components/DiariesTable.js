@@ -9,55 +9,51 @@ import Diary from './Diary';
 
 import { useGetDiaryQuery } from '../features/diaries/diariesApiSlice';
 
-
 const DiariesTable = () => {
+  const {
+    data: diaries,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetDiaryQuery(undefined, {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
-    const {
-        data: diaries,
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    } = useGetDiaryQuery(undefined, {
-        pollingInterval: 15000,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true
-    })
+  let content;
 
-    let content
+  if (isLoading) content = <p>Loading...</p>;
 
-    if (isLoading) content = <p>Loading...</p>
+  if (isError) {
+    content = <p>{error?.data?.message}</p>;
+  }
 
-    if (isError) {
-        content = <p>{error?.data?.message}</p>
-    }
+  if (isSuccess) {
+    const { ids } = diaries;
 
-    if (isSuccess) {
+    const tableContent =
+      ids?.length &&
+      ids.map((diaryId) => <Diary key={diaryId} diaryId={diaryId} />);
 
-        const { ids } = diaries
+    content = (
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell>Notes</TableCell>
+              <TableCell>Project</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{tableContent}</TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 
-        const tableContent = ids?.length
-            && ids.map(diaryId => <Diary key={diaryId} diaryId={diaryId} />)
+  return content;
+};
 
-        content = (
-            <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Notes</TableCell>
-                        <TableCell>Project</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tableContent}
-                </TableBody>
-            </Table>
-        </TableContainer>
-        )
-    }
-    
-    return content
-    }
-
-export default DiariesTable
+export default DiariesTable;
