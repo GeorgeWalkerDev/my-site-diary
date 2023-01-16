@@ -6,9 +6,9 @@ const getAllDiaries = async (req, res, next) => {
   try {
     const diaries = await Diary.find({}).sort({ createdAt: 'desc' }).lean();
 
-    // if (!diaries?.length) {
-    //   return res.status(400).json({ message: 'No notes found' });
-    // }
+    if (!diaries?.length) {
+      return res.status(400).json({ message: 'No notes found' });
+    }
 
     const diariesWithUser = await Promise.all(
       diaries.map(async (diary) => {

@@ -25,7 +25,9 @@ const login = async (req, res) => {
     {
       UserInfo: {
         email: foundUser.email,
-        // "roles": roles
+        firstName: foundUser.firstName,
+        lastName: foundUser.lastName,
+        roles: foundUser.roles,
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
@@ -73,11 +75,11 @@ const refresh = (req, res) => {
         {
           UserInfo: {
             email: foundUser.email,
-            // "roles": foundUser.roles
+            roles: foundUser.roles,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '20s' }
+        { expiresIn: '15m' }
       );
 
       res.json({ accessToken });
