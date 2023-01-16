@@ -8,18 +8,23 @@ const DiarySchema = new mongoose.Schema({
   },
   weather: {
     type: String,
+    default: 'N/A',
   },
   delays: {
     type: String,
+    default: 'N/A',
   },
   variations: {
     type: String,
+    default: 'N/A',
   },
   healthSafety: {
     type: String,
+    default: 'N/A',
   },
   deliveries: {
     type: String,
+    default: 'N/A',
   },
   notes: {
     type: String,
@@ -33,6 +38,11 @@ const DiarySchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
   },
 });
 

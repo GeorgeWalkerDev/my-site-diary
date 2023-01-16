@@ -9,8 +9,17 @@ import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAddNewDiaryMutation } from '../features/diaries/diariesApiSlice';
+import { useGetUsersQuery } from '../features/users/usersApiSlice';
 
 const AddDiary = () => {
+  const { users } = useGetUsersQuery('usersList', {
+    selectFromResult: ({ data }) => ({
+      users: data?.ids.map((id) => data?.entities[id]),
+    }),
+  });
+
+  if (!users?.length) return <p>Is Loading...</p>;
+
   const [
     addNewDiary,
     {
@@ -63,6 +72,7 @@ const AddDiary = () => {
         healthsafety,
         deliveries,
         notes,
+        user: users[0].id,
       });
     }
   };

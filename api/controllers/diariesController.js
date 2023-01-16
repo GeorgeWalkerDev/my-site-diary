@@ -1,10 +1,23 @@
 const Diary = require('../models/Diary');
+const User = require('../models/User');
 
 // @desc    Show all diaries
 const getAllDiaries = async (req, res, next) => {
   try {
     const diaries = await Diary.find({}).sort({ createdAt: 'desc' }).lean();
-    res.send(diaries);
+
+    // if (!diaries?.length) {
+    //   return res.status(400).json({ message: 'No notes found' });
+    // }
+
+    const diariesWithUser = await Promise.all(
+      diaries.map(async (diary) => {
+        const user = await User.findById(diary.user).lean().exec();
+        return { ...diary, user: `${user.firstName} ${user.lastName}` };
+      })
+    );
+
+    res.send(diariesWithUser);
   } catch (error) {
     console.error(error);
   }
@@ -23,7 +36,6 @@ const getDiary = async (req, res) => {
 // @desc    Process add form
 const addDiary = async (req, res) => {
   try {
-    // req.body.user = req.user.id
     const diary = await Diary.create(req.body);
     res.send(diary);
   } catch (err) {
