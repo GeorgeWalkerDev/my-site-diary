@@ -10,6 +10,7 @@ const Layout = () => {
     <>
       <Navbar sideBarClick={() => setIsDrawerOpen(true)} />
       <Sidebar
+        setIsDrawerOpen={setIsDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
       />

@@ -11,6 +11,8 @@ import AddDiary from './pages/AddDiary';
 import EditDiary from './pages/EditDiary';
 import Public from './pages/Public';
 import Welcome from './pages/Welcome';
+import RequireAuth from './features/auth/RequireAuth';
+import { ROLES } from './utils/roles';
 
 function App() {
   // TODO: Reuse /diaries/:id as diaries/edit/:id
@@ -23,13 +25,17 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>
-          <Route element={<Prefetch />}>
-            <Route path="dashboard" element={<Dashboard />}>
-              <Route index element={<Welcome />} />
-              <Route path="diaries" element={<Diaries />} />
-              <Route path=":id" element={<Diary />} />
-              <Route path="add" element={<AddDiary />} />
-              <Route path="edit/:id" element={<EditDiary />} />
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route element={<Prefetch />}>
+              <Route path="dashboard" element={<Dashboard />}>
+                <Route index element={<Welcome />} />
+                <Route path="diaries" element={<Diaries />} />
+                <Route path=":id" element={<Diary />} />
+                <Route path="add" element={<AddDiary />} />
+                <Route path="edit/:id" element={<EditDiary />} />
+              </Route>
             </Route>
           </Route>
         </Route>

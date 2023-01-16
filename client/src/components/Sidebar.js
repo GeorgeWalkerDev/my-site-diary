@@ -16,7 +16,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSendLogoutMutation } from '../features/auth/authApiSlice';
 
-const Sidebar = ({ onClose, isDrawerOpen }) => {
+const Sidebar = ({ onClose, isDrawerOpen, setIsDrawerOpen }) => {
   const navigate = useNavigate();
   // const { pathname } = useLocation()
 
@@ -27,7 +27,10 @@ const Sidebar = ({ onClose, isDrawerOpen }) => {
     if (isSuccess) navigate('/');
   }, [isSuccess, navigate]);
 
-  const onLogoutClicked = () => sendLogout();
+  const onLogoutClicked = () => {
+    setIsDrawerOpen(false);
+    sendLogout();
+  };
 
   if (isLoading) return <p>Logging out...</p>;
 
