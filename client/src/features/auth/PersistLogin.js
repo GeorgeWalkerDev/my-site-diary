@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import AddIcon from '@mui/icons-material/Add';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useRefreshMutation } from './authApiSlice';
 import usePersist from '../../hooks/usePersist';
 import { selectCurrentToken } from './authSlice';
@@ -67,14 +68,14 @@ const PersistLogin = () => {
     );
   } else if (isLoading) {
     // persist: yes, token: no
-    console.log('loading');
+    content = <CircularProgress />;
   } else if (isError) {
     // persist: yes, token: no
     console.log('error');
     content = (
       <p className="errmsg">
         {`${error?.data?.message} - `}
-        <RouterLink to="/login">Please login again</RouterLink>.
+        <RouterLink to="/signin">Please login again</RouterLink>.
       </p>
     );
   } else if (isSuccess && trueSuccess) {

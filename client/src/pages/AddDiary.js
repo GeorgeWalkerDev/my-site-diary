@@ -1,3 +1,4 @@
+import CircularProgress from '@mui/material/CircularProgress';
 import { useGetUsersQuery } from '../features/users/usersApiSlice';
 import AddDiaryForm from '../components/AddDiaryForm';
 
@@ -8,7 +9,7 @@ const AddDiary = () => {
     }),
   });
 
-  if (!users?.length) return <p>Is Loading...</p>;
+  if (!users?.length) return <CircularProgress />;
 
   const content = <AddDiaryForm users={users} />;
 

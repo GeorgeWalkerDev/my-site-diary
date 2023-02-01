@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 import Diary from './Diary';
 
 import { useGetDiaryQuery } from '../features/diaries/diariesApiSlice';
@@ -24,7 +25,7 @@ const DiariesTable = () => {
 
   let content;
 
-  if (isLoading) content = <p>Loading...</p>;
+  if (isLoading) content = <CircularProgress />;
 
   if (isError) {
     content = <p>{error?.data?.message}</p>;

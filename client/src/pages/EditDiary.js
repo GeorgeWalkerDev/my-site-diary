@@ -1,3 +1,4 @@
+import CircularProgress from '@mui/material/CircularProgress';
 import { useParams } from 'react-router-dom';
 import { useGetDiaryQuery } from '../features/diaries/diariesApiSlice';
 import EditDiaryForm from '../components/EditDiaryForm';
@@ -11,7 +12,7 @@ const EditDiary = () => {
     }),
   });
 
-  if (!diary) return <p>Loading...</p>;
+  if (!diary) return <CircularProgress />;
 
   const content = <EditDiaryForm diary={diary} />;
 

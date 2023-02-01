@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ const Diary = () => {
   const diary = useSelector((state) => selectDiaryById(state, id));
 
   if (!diary) {
-    return <LoadingButton />;
+    return <CircularProgress />;
   }
 
   return (

@@ -9,6 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import CircularProgress from '@mui/material/CircularProgress';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
@@ -66,7 +67,7 @@ const Signin = () => {
     setErrMsg('');
   }, [email, password]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <CircularProgress />;
 
   const content = (
     <Container maxWidth="xs">
